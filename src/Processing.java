@@ -2,10 +2,20 @@ import processing.core.PApplet;
 
 public class Processing extends PApplet {
 
+	  private static Processing single = new Processing();
+	  
+	  public static Processing getInstance(){
+	        return single;
+	    }
+	
+	int width, height;
+	boolean setup,draw;
 	List<Object> list;
 	
 	
-	public Processing(){
+	
+	
+	private Processing(){
 		super();
 		this.list = new List<Object>();
 	}
@@ -13,25 +23,28 @@ public class Processing extends PApplet {
 	private void excute(){
 		if(ProcessingStack.getInstance().stack.size()>0){
 
-			for(int i = ProcessingStack.getInstance().stack.size()-1; i>=0;i--){
+			for(int i = ProcessingStack.getInstance().stack.size() -1 ; i>=0;i--){
 				
-				Integer num = (Integer)ProcessingStack.getInstance().stack.get(i);
+				Integer num = (Integer)ProcessingStack.getInstance().stack.pop();
 				
 				switch (num) {
 				case 1:
 
-					size(	((Integer)DataStack .getInstance().pop()).intValue(),
-							((Integer)DataStack .getInstance().pop()).intValue());
+					this.height = ((Integer)DataStack .getInstance().pop()).intValue();
+					this.width = ((Integer)DataStack .getInstance().pop()).intValue();
+					
+					size(this.width,this.height);
+					ProcessingWindow.getInstance().setSize(this.width,this.height);
+					ProcessingWindow.getInstance().setVisible(true);
+					
 					break;
 					
 				case 2:
 					int a1 = ((Integer)DataStack .getInstance().pop());
 					int a2 = ((Integer)DataStack .getInstance().pop());
 					int a3 = ((Integer)DataStack .getInstance().pop());
-					System.out.println("background");
-					System.out.println(a3);
-					System.out.println(a2);
-					System.out.println(a1);
+
+
 					background(	a3,
 							a2,
 							a1);
@@ -59,13 +72,17 @@ public class Processing extends PApplet {
 				default:
 					break;
 				}
+
 			}
 		}
 	}
 	
 	public void setup() {
+		if(setup){
 		try{
-			for (Object ob : list){
+			for (int i = 0 ; i< list.size()  ; i++){
+				Object ob = list.get(i);
+
 				if (ob instanceof PrimWord) {
 					PrimWord fu = (PrimWord) ob;
 					Object obj = fu.excute();
@@ -83,13 +100,46 @@ public class Processing extends PApplet {
 					DataStack.getInstance().push(ob);
 				}
 				excute();
-	
 			}
-			
-			excute();
 		}
 		catch(Exception e){
-			System.out.println("프로세싱 에러!");
+			System.out.println("프로세싱 에러!"+ e);
+			exit();
+		}
+		}
+	}
+	
+	public void draw() {
+
+		if(draw){
+		try{
+			for (int i = 0 ; i< list.size()  ; i++){
+				Object ob = list.get(i);
+
+				if (ob instanceof PrimWord) {
+					PrimWord fu = (PrimWord) ob;
+					Object obj = fu.excute();
+					if(obj != null)
+						DataStack.getInstance().push(obj);
+				}
+						
+				else if (ob instanceof UserWord) {
+					UserWord uf = (UserWord) ob;
+					DataStack.getInstance().push(uf.toArray());
+					PrimDict.getInstance().get("run").excute();
+				}
+				
+				else{ 
+					DataStack.getInstance().push(ob);
+				}
+				excute();
+			}
+		}
+		catch(Exception e){
+			System.out.println("프로세싱 에러!"+ e);
+			exit();
+		}
+	
 		}
 	}
 

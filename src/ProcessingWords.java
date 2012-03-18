@@ -73,9 +73,9 @@ public class ProcessingWords {
 				Object obj = DataStack.getInstance().pop();
 				if (obj instanceof List) {
 					List list = (List) obj;
-					Processing pro = new Processing();
-					pro.list=list;
-					new ProcessingWindow(pro);
+					Processing.getInstance().list=list;
+					Processing.getInstance().setup = true;
+					ProcessingWindow.getInstance();
 				}
 				return null;
 			}
@@ -84,6 +84,28 @@ public class ProcessingWords {
 			public String toString() {
 				// TODO Auto-generated method stub
 				return "setup";
+			}
+		});
+	    
+	    PrimDict.getInstance().put("draw",new PrimWord() {
+			
+			@Override
+			public Object excute() {
+				// TODO Auto-generated method stub
+				Object obj = DataStack.getInstance().pop();
+				if (obj instanceof List) {
+					List list = (List) obj;
+					Processing.getInstance().list=list;
+					Processing.getInstance().draw = true;
+				}
+				ProcessingWindow.getInstance();
+				return null;
+			}
+			
+			@Override
+			public String toString() {
+				// TODO Auto-generated method stub
+				return "draw";
 			}
 		});
 	    

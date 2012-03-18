@@ -21,6 +21,6 @@ public class Main {
 		new ConvertWords();
 		new ProcessingWords();
 		
-		interpreter.run("  [ 255 255 3 background 0 0 0 pstack ]  setup ");
+		interpreter.run(" ( 200 300 p-size 1 2 3 background ) draw");
 	}
 }

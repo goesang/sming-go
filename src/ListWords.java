@@ -2,7 +2,7 @@ public class ListWords {
 
     public ListWords(){
 
-    	PrimDict.getInstance().put("[",new PrimWord() {
+    	PrimDict.getInstance().put("(",new PrimWord() {
     		//목록을 만드는 단어			
 			@Override
 			public Object excute() {
@@ -10,7 +10,7 @@ public class ListWords {
 				Object obj = null;
 				List<Object> list  = new List<Object>();
 				while(true){
-					obj = SmingGo.getInstance().nextObject(']',true);
+					obj = SmingGo.getInstance().nextObject(')',true);
 				if(obj == null)  break;
 				
 				list.add(obj);
@@ -21,7 +21,7 @@ public class ListWords {
 			@Override
 			public String toString() {
 				// TODO Auto-generated method stub
-				return "[";
+				return "(";
 			}
 			
 		});
@@ -116,12 +116,12 @@ public class ListWords {
 			}
 		});
     	
-    	PrimDict.getInstance().put("head",new PrimWord() {
+    	PrimDict.getInstance().put("car",new PrimWord() {
     		//목록의 첫번째 단어를 뽑아내는 단어
 			@Override
 			public Object excute() throws Exception {
 				// TODO Auto-generated method stub
-				Error.enoughMsg(1,"head");
+				Error.enoughMsg(1,"car");
 				
 				Object obj1 = DataStack.getInstance().pop();
 				
@@ -130,23 +130,23 @@ public class ListWords {
 					return list.getFirst();
 				}
 				else{
-					Error.errorList("이", "head");
+					Error.errorList("이", "car");
 				}
 				return null;
 			}
 			@Override
 			public String toString() {
 				// TODO Auto-generated method stub
-				return "head";
+				return "car";
 			}
 		});
 
-    	PrimDict.getInstance().put("tail",new PrimWord() {
+    	PrimDict.getInstance().put("cdr",new PrimWord() {
     		//목록의 첫번째 단어를 제외한 나머지 단어들을 뽑아내는 단어
 			@Override
 			public Object excute() throws Exception {
 				// TODO Auto-generated method stub
-				Error.enoughMsg(1,"tail");
+				Error.enoughMsg(1,"cdr");
 				
 				Object obj1 = DataStack.getInstance().pop();
 				
@@ -156,14 +156,14 @@ public class ListWords {
 					return list;
 				}
 				else{
-					Error.errorList("이", "tail");
+					Error.errorList("이", "cdr");
 				}
 				return null;
 			}
 			@Override
 			public String toString() {
 				// TODO Auto-generated method stub
-				return "tail";
+				return "cdr";
 			}
 		});
     	
@@ -201,14 +201,14 @@ public class ListWords {
 			}
 		});
     	
-    	PrimDict.getInstance().get("[").immediate = true;
+    	PrimDict.getInstance().get("(").immediate = true;
     	
-    	PrimDict.getInstance().get("[").meaning = " x... -- list ";
+    	PrimDict.getInstance().get("(").meaning = " x... -- list ";
     	PrimDict.getInstance().get("add").meaning = " list1 x -- list2 ";
     	PrimDict.getInstance().get("times").meaning = " list1 int -- list2 ";
     	PrimDict.getInstance().get("size").meaning = " list -- int ";
-    	PrimDict.getInstance().get("head").meaning = " list -- x ";	
-    	PrimDict.getInstance().get("tail").meaning = " list1 -- list2 ";	
+    	PrimDict.getInstance().get("car").meaning = " list -- x ";	
+    	PrimDict.getInstance().get("cdr").meaning = " list1 -- list2 ";	
     	PrimDict.getInstance().get("concat").meaning = " list1 list2 -- list3 ";	
     }
     

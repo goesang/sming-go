@@ -101,12 +101,12 @@ public class BooleanWords {
 							return bool1.booleanValue() && bool2.booleanValue();
 						}
 						else{
-							Error.errorBool("�sd吏�,"and");
+							Error.errorBool("두번째","and");
 							return null;
 						}
 					}
 					else{
-						Error.errorBool("泥ル쾲吏�,"and");
+						Error.errorBool("첫번째","and");
 						return null;
 					}
 
@@ -134,12 +134,12 @@ public class BooleanWords {
 							return bool1.booleanValue() || bool2.booleanValue();
 						}
 						else{
-							Error.errorBool("�먮쾲吏�,"or");
+							Error.errorBool("두번째","or");
 							return null;
 						}
 					}
 					else{
-						Error.errorBool("泥ル쾲吏�,"or");
+						Error.errorBool("첫번째","or");
 						return null;
 					}
 
@@ -165,7 +165,7 @@ public class BooleanWords {
 							return !bool1.booleanValue();
 					}
 					else{
-						Error.errorBool("��,"not");
+						Error.errorBool("이","not");
 						return null;
 					}
 
@@ -184,10 +184,10 @@ public class BooleanWords {
 		    
 		    PrimDict.getInstance().get("true").meaning = " -- bool ";
 		    PrimDict.getInstance().get("false").meaning = " -- bool ";
-		    PrimDict.getInstance().get("=?").meaning = " x1 x2 -- bool ";
-		    PrimDict.getInstance().get("!?").meaning = " x1 x2 -- bool ";
-		    PrimDict.getInstance().get("and").meaning = " bool1 bool2 -- bool3 ";
-		    PrimDict.getInstance().get("or").meaning = " bool1 bool2 -- bool3 ";
+		    PrimDict.getInstance().get("=?").meaning = " Anony x -- bool ";
+		    PrimDict.getInstance().get("!?").meaning = " x x -- bool ";
+		    PrimDict.getInstance().get("and").meaning = " bool bool -- bool ";
+		    PrimDict.getInstance().get("or").meaning = " bool bool -- bool ";
 		    PrimDict.getInstance().get("not").meaning = " bool -- bool ";
 	    }
 

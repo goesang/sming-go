@@ -10,9 +10,9 @@ public class List<E> extends LinkedList<E> {
 		super(list);
 	}
 	public String toString(){
-		if(super.size() == 0) return "[]";
+		if(super.size() == 0) return "()";
 		else{
-			StringBuilder str = new StringBuilder("[ ");
+			StringBuilder str = new StringBuilder("( ");
 		for (Object obj : super.toArray()){
 			if (obj instanceof String) {
 				str.append("\""+(String) obj.toString()+"\", ");
@@ -24,8 +24,8 @@ public class List<E> extends LinkedList<E> {
 				str.append(obj.toString()+", ");
 			}
 		}
-		if(str.length() >=100) return str.substring(0, 98)+"..."+" ]";
-		else return str.toString().substring(0, str.length()-2)+" ]";
+		if(str.length() >=100) return str.substring(0, 98)+"..."+" )";
+		else return str.toString().substring(0, str.length()-2)+" )";
 		}
 	}
 }

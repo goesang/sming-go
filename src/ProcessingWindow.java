@@ -3,27 +3,38 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import processing.core.PApplet;
 
 public class ProcessingWindow extends Frame {
 
   // constructor
-  public ProcessingWindow(PApplet pap) {
+	
+	
+	  private static ProcessingWindow single = new ProcessingWindow();
+	  
+	  public static ProcessingWindow getInstance(){
+	        return single;
+	    }
+	    	
+
+	
+  private ProcessingWindow() {
 
 	super("Processing");
 	setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));	
-	add(pap);
+	add(Processing.getInstance());
 	
+
 	addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-			dispose();
+			System.exit(ERROR);
 		}
 	});
-	
-	pap.init();
-	setVisible(true);
-	setSize(pap.width, pap.height);
+	Processing.getInstance().init();
+	setSize(200, 200);
+	//setVisible(true);
 	}
   
 
