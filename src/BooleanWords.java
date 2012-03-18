@@ -101,12 +101,12 @@ public class BooleanWords {
 							return bool1.booleanValue() && bool2.booleanValue();
 						}
 						else{
-							Error.errorBool("두번째","and");
+							Error.errorBool("�sd吏�,"and");
 							return null;
 						}
 					}
 					else{
-						Error.errorBool("첫번째","and");
+						Error.errorBool("泥ル쾲吏�,"and");
 						return null;
 					}
 
@@ -134,12 +134,12 @@ public class BooleanWords {
 							return bool1.booleanValue() || bool2.booleanValue();
 						}
 						else{
-							Error.errorBool("두번째","or");
+							Error.errorBool("�먮쾲吏�,"or");
 							return null;
 						}
 					}
 					else{
-						Error.errorBool("첫번째","or");
+						Error.errorBool("泥ル쾲吏�,"or");
 						return null;
 					}
 
@@ -165,7 +165,7 @@ public class BooleanWords {
 							return !bool1.booleanValue();
 					}
 					else{
-						Error.errorBool("이","not");
+						Error.errorBool("��,"not");
 						return null;
 					}
 
