@@ -1,25 +1,34 @@
+import java.util.Stack;
+
 
 
 public class UserWord {
+	
+	public static Lamda<Object> defineState = null;
+	public static Stack<Lamda> callee = new Stack<Lamda>();
+	public static String defineMeaning;
+	public static String defineName;
+	
+	
 	public String meaning;
 	
-	private List<Object> list;
-	private String title;
+	private Lamda<Object> list;
+	private String name;
 
 	public boolean immediate;
 
-	public UserWord(String title,String meaning,List<Object> list){
-		this.title = title;
+	public UserWord(String name,String meaning,Lamda<Object> list){
+		this.name = name;
 		this.meaning = meaning;
 		this.list = list;
 	}
 
 	public String toString(){
-		return this.title;
+		return this.name;
 	}
 
-	public List<Object> toArray(){
-		List<Object> list = new List<Object>();
+	public Lamda<Object> toArray(){
+		Lamda<Object> list = new Lamda<Object>();
 	
 		for(Object obj : this.list)
 		{

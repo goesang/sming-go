@@ -71,9 +71,9 @@ public class ProcessingWords {
 			public Object excute() {
 				// TODO Auto-generated method stub
 				Object obj = DataStack.getInstance().pop();
-				if (obj instanceof List) {
-					List list = (List) obj;
-					Processing.getInstance().list=list;
+				if (obj instanceof Lamda) {
+					Lamda lamda = (Lamda) obj;
+					Processing.getInstance().lamda=lamda;
 					Processing.getInstance().setup = true;
 					ProcessingWindow.getInstance();
 				}
@@ -93,9 +93,9 @@ public class ProcessingWords {
 			public Object excute() {
 				// TODO Auto-generated method stub
 				Object obj = DataStack.getInstance().pop();
-				if (obj instanceof List) {
-					List list = (List) obj;
-					Processing.getInstance().list=list;
+				if (obj instanceof Lamda) {
+					Lamda lamda = (Lamda) obj;
+					Processing.getInstance().lamda=lamda;
 					Processing.getInstance().draw = true;
 				}
 				ProcessingWindow.getInstance();

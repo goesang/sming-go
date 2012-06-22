@@ -26,11 +26,28 @@ public class StackWords {
 				Error.enoughMsg(1,"dup");
 				Object object = DataStack.getInstance().pop();
 				DataStack.getInstance().push(object);
-				if (object instanceof List) {
-					List<Object> list = (List<Object>) object;
-					DataStack.getInstance().push(list.clone());
+				if (object instanceof Lamda) {
+					Lamda<Object> lamda = (Lamda<Object>) object;
+					DataStack.getInstance().push(lamda.clone());
 					return null;
 				}
+				DataStack.getInstance().push(object);
+				return null;
+			}
+			@Override
+			public String toString() {
+				// TODO Auto-generated method stub
+				return "dup";
+			}
+		});
+		
+		PrimDict.getInstance().put("d",new PrimWord() {
+			
+			@Override
+			public Object excute() throws Exception {
+				// TODO Auto-generated method stub
+				Error.enoughMsg(1,"d");
+				Object object = DataStack.getInstance().peek();
 				DataStack.getInstance().push(object);
 				return null;
 			}
@@ -75,9 +92,9 @@ public class StackWords {
 					DataStack.getInstance().push(object1);
 					DataStack.getInstance().push(object2);
 					
-					if (object1 instanceof List) {
-						List<Object> list = (List<Object>) object1;
-						DataStack.getInstance().push(list.clone());
+					if (object1 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object>) object1;
+						DataStack.getInstance().push(lamda.clone());
 					}else{
 						DataStack.getInstance().push(object1);
 					}
@@ -125,15 +142,15 @@ public class StackWords {
 					DataStack.getInstance().push(object1);
 					DataStack.getInstance().push(object2);
 					
-					if (object1 instanceof List) {
-						List<Object> list = (List<Object>) object1;
-						DataStack.getInstance().push(list.clone());
+					if (object1 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object>) object1;
+						DataStack.getInstance().push(lamda.clone());
 					}else{
 						DataStack.getInstance().push(object1);
 					}
-					if (object2 instanceof List) {
-						List<Object> list = (List<Object>) object2;
-						DataStack.getInstance().push(list.clone());
+					if (object2 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object>) object2;
+						DataStack.getInstance().push(lamda.clone());
 					}else{
 						DataStack.getInstance().push(object2);
 					}
@@ -203,21 +220,21 @@ public class StackWords {
 					DataStack.getInstance().push(object2);
 					DataStack.getInstance().push(object3);
 
-					if (object1 instanceof List) {
-						List<Object> list = (List<Object>) object1;
-						DataStack.getInstance().push(list.clone());
+					if (object1 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object>) object1;
+						DataStack.getInstance().push(lamda.clone());
 					}else{
 						DataStack.getInstance().push(object1);
 					}
-					if (object2 instanceof List) {
-						List<Object> list = (List<Object>) object2;
-						DataStack.getInstance().push(list.clone());
+					if (object2 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object>) object2;
+						DataStack.getInstance().push(lamda.clone());
 					}else{
 						DataStack.getInstance().push(object2);
 					}
-					if (object3 instanceof List) {
-						List<Object> list = (List<Object>) object3;
-						DataStack.getInstance().push(list.clone());
+					if (object3 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object>) object3;
+						DataStack.getInstance().push(lamda.clone());
 					}else{
 						DataStack.getInstance().push(object1);
 					}	
@@ -262,9 +279,9 @@ public class StackWords {
 					DataStack.getInstance().push(object2);
 					DataStack.getInstance().push(object3);
 					
-					if (object1 instanceof List) {
-						List<Object> list = (List<Object>) object1;
-						DataStack.getInstance().push(list.clone());
+					if (object1 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object>) object1;
+						DataStack.getInstance().push(lamda.clone());
 					}else{
 						DataStack.getInstance().push(object1);
 					}

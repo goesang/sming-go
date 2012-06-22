@@ -1,11 +1,12 @@
-#Sun Mar 18 12:10:06 KST 2012
 eclipse.preferences.version=1
 encoding//src/BooleanWords.java=UTF-8
 encoding//src/CheckWords.java=UTF-8
 encoding//src/ControlWords.java=UTF-8
 encoding//src/DefineWords.java=UTF-8
+encoding//src/Error.java=UTF-8
 encoding//src/IOWords.java=UTF-8
-encoding//src/ListWords.java=UTF-8
+encoding//src/LamdaWords.java=UTF-8
 encoding//src/MathWords.java=UTF-8
+encoding//src/Processing.java=UTF-8
 encoding//src/SmingGo.java=UTF-8
 encoding//src/StringWords.java=UTF-8

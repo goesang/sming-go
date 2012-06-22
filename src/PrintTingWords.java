@@ -17,20 +17,7 @@ public class PrintTingWords {
 				return "print";
 			}
 		});
-    	
-    	PrimDict.getInstance().put("cr",new PrimWord() {
-			
-			@Override
-			public Object excute() {
-				// TODO Auto-generated method stub
-					System.out.println("");
-					return null;
-			}
-			public String toString(){
-				return "cr";
-			}
-		});
-    	
+    	    	
     	PrimDict.getInstance().put("pstack",new PrimWord() {
 			
 			@Override

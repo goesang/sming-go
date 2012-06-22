@@ -27,8 +27,8 @@ public class CommentWords {
 			}
 		});
 			
-		    PrimDict.getInstance().get("##").immediate = true;
-		    PrimDict.getInstance().get("#").immediate = true;
+		    PrimDict.getInstance().get("##").im = true;
+		    PrimDict.getInstance().get("#").im = true;
 		    
 		    PrimDict.getInstance().get("##").meaning = " -- ";
 		    PrimDict.getInstance().get("#").meaning = " -- ";			

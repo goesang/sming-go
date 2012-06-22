@@ -84,13 +84,13 @@ public class StringWords {
 						String str1 = (String) object1;
 						if (object2 instanceof String) {
 							String str2 = (String) object2;
-							List<Object> list = new List<Object>();
+							Lamda<Object> lamda = new Lamda<Object>();
 							
 							for(Object obj : str1.split(str2) ){
-								list.add(obj);
+								lamda.add(obj);
 							}
 							
-							return list;
+							return lamda;
 						}
 						else{
 							Error.errorString("두번째", "spilt");
@@ -242,6 +242,6 @@ public class StringWords {
 				}
 			});
 
-	    	PrimDict.getInstance().get("\"").immediate = true;
+	    	PrimDict.getInstance().get("\"").im = true;
 	    }
 }

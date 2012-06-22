@@ -75,7 +75,7 @@ public class CheckWords {
 				Error.enoughMsg(1,"list?");
 				Object obj = DataStack.getInstance().pop();
 				
-				if (obj instanceof List) {
+				if (obj instanceof Lamda) {
 					return true;
 				}
 				else

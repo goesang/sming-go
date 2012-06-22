@@ -3,7 +3,9 @@ import java.util.List;
 
 public class SmingGo {
 
-	private StringBuilder text; 
+	public static boolean stackState;	
+	
+	private StringBuilder text;
 	private int position;
 	
 	private static SmingGo single = new SmingGo();
@@ -30,7 +32,9 @@ public class SmingGo {
 	        || (cr == '[')
 	        || (cr == '@')
 	        || (cr == '$')
-	        || (cr == '(');
+	        || (cr == '(')
+	        || (cr == ')')
+	        ;
 	}
 	
 	
@@ -65,14 +69,22 @@ public class SmingGo {
         return collector;
     }
     
-    public Object nextObject (char cr,boolean immediate) { // 객체를 반환하는 매서드
+    public Object nextObject (boolean im) { // 객체를 반환하는 매서드
     	
     	String word = this.nextWord().toLowerCase();
     	
-    	if(word.charAt(0) == cr) 
-    		return null;
-       
-    	try{
+    	if (Lamda.defineState.size() >= 0  ){
+        	try{	// 람다 정의중에 변수를 찾아냄
+        		for(Lamda lamda : Lamda.defineState){
+        			Object obj = lamda.get(new Symbol(word));
+        			if(obj != null) 
+        				return obj; 
+        		}
+        	} 
+            catch(Exception e){}
+    	}
+    	
+    	try{	// 사용자 정의 단어를 찾아냄
     		if(UserDict.getInstance().get(word) != null)  		
     			return (UserDict.getInstance().get(word));
     	} 
@@ -89,7 +101,7 @@ public class SmingGo {
         catch(Exception e){}
        
         try{  
-        	if(PrimDict.getInstance().get(word).immediate && immediate)	
+        	if(PrimDict.getInstance().get(word).im && im)	
         		return(PrimDict.getInstance().get(word).excute());
         	else 
         		return PrimDict.getInstance().get(word);
@@ -128,7 +140,7 @@ public class SmingGo {
        
 
         try{  
-        	if(PrimDict.getInstance().get(word).immediate)	
+        	if(PrimDict.getInstance().get(word).im)	
         		return(PrimDict.getInstance().get(word).excute());
         	else return PrimDict.getInstance().get(word);
         			 }
@@ -182,7 +194,7 @@ public class SmingGo {
 	        	  
         		if(arrayList != null){
         			DataStack.getInstance().push(arrayList);
-        			PrimDict.getInstance().get("run").excute();
+        			PrimDict.getInstance().get("<<").excute();
         			continue;	
         		}	
         	} catch(Exception e){}

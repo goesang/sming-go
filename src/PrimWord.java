@@ -2,7 +2,7 @@ public class PrimWord {
 	
 	public String meaning;
 	
-	public boolean immediate;
+	public boolean im;
 	public static String state = "normal";
 
 	

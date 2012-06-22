@@ -10,14 +10,14 @@ public class Processing extends PApplet {
 	
 	int width, height;
 	boolean setup,draw;
-	List<Object> list;
+	Lamda<Object> lamda;
 	
 	
 	
 	
 	private Processing(){
 		super();
-		this.list = new List<Object>();
+		this.lamda = new Lamda<Object>();
 	}
 	
 	private void excute(){
@@ -80,8 +80,8 @@ public class Processing extends PApplet {
 	public void setup() {
 		if(setup){
 		try{
-			for (int i = 0 ; i< list.size()  ; i++){
-				Object ob = list.get(i);
+			for (int i = 0 ; i< lamda.size()  ; i++){
+				Object ob = lamda.get(i);
 
 				if (ob instanceof PrimWord) {
 					PrimWord fu = (PrimWord) ob;
@@ -103,7 +103,7 @@ public class Processing extends PApplet {
 			}
 		}
 		catch(Exception e){
-			System.out.println("프로세싱 에러!"+ e);
+			System.out.println("�꾨줈�몄떛 �먮윭!"+ e);
 			exit();
 		}
 		}
@@ -113,8 +113,8 @@ public class Processing extends PApplet {
 
 		if(draw){
 		try{
-			for (int i = 0 ; i< list.size()  ; i++){
-				Object ob = list.get(i);
+			for (int i = 0 ; i< lamda.size()  ; i++){
+				Object ob = lamda.get(i);
 
 				if (ob instanceof PrimWord) {
 					PrimWord fu = (PrimWord) ob;
@@ -136,7 +136,7 @@ public class Processing extends PApplet {
 			}
 		}
 		catch(Exception e){
-			System.out.println("프로세싱 에러!"+ e);
+			System.out.println("�꾨줈�몄떛 �먮윭!"+ e);
 			exit();
 		}
 	

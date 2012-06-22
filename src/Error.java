@@ -26,6 +26,12 @@ public class Error {
 		throw new Exception(num+" 단어는 '기본 정의 단어'가 아닙니다! -- \""+name+"\"");
 	}
 	public static void errorUserWord(String num,String name) throws Exception{
-		throw new Exception(num+" 단어는 '기본 정의 단어'가 아닙니다! -- \""+name+"\"");
+		throw new Exception(num+" 단어는 '사용자 정의 단어'가 아닙니다! -- \""+name+"\"");
+	}
+	public static void errorLamda(String num,String name) throws Exception{
+		throw new Exception(num+" 단어는 '람다'가 아닙니다! -- \""+name+"\"");
+	}
+	public static void errorSymbol(String num,String name) throws Exception{
+		throw new Exception(num+" 단어는 '심볼'이 아닙니다! -- \""+name+"\"");
 	}
 }

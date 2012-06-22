@@ -179,8 +179,8 @@ public class BooleanWords {
 			});
 	     
 
-		    PrimDict.getInstance().get("true").immediate = true;
-		    PrimDict.getInstance().get("false").immediate = true;
+		    PrimDict.getInstance().get("true").im = true;
+		    PrimDict.getInstance().get("false").im = true;
 		    
 		    PrimDict.getInstance().get("true").meaning = " -- bool ";
 		    PrimDict.getInstance().get("false").meaning = " -- bool ";

@@ -1,21 +1,21 @@
-import java.util.List;
-
 public class ControlWords {
-	
+
 	public ControlWords(){
 	    	
-		PrimDict.getInstance().put("run",new PrimWord() {
+		PrimDict.getInstance().put("<<",new PrimWord() {
 				
 			@Override
 			public Object excute() throws Exception {
 				// TODO Auto-generated method stub
-				Error.enoughMsg(1,"run");
-					
+				Error.enoughMsg(1,"<<");					
 				Object object = DataStack.getInstance().pop();
 					
-				if (object instanceof List) {
-					List<Object> list = (List<Object>) object;
-					for (Object ob : list){
+				if (object instanceof Lamda) {
+					System.gc();
+					Lamda lamda = (Lamda) object;
+					Lamda.callee.push(lamda); // 현재 진행되는 람다에 넣음
+					
+					for (Object ob : lamda){
 						if (ob instanceof PrimWord) {
 							PrimWord fu = (PrimWord) ob;
 							Object obj = fu.excute();
@@ -26,16 +26,43 @@ public class ControlWords {
 						else if (ob instanceof UserWord) {
 							UserWord uf = (UserWord) ob;
 							DataStack.getInstance().push(uf.toArray());
+							UserWord.callee.push(uf.toArray());
 							excute();
+							UserWord.callee.pop();
 						}
 						
 						else{ 
 							DataStack.getInstance().push(ob);
 						}
 					}
+					Lamda.callee.pop();
+				}
+				else if(object instanceof Symbol){
+					Symbol symTmp = (Symbol)object;
+					Object objTmp = SmingGo.getInstance().StringToObject(symTmp.toString(),false);
+					DataStack.getInstance().push(objTmp);
+					excute();
+					return null; 
+				}
+				else if (object instanceof PrimWord) {
+					PrimWord pri = (PrimWord) object;
+					return pri.excute(); 
+				}
+				else if (object instanceof UserWord) {
+					UserWord user = (UserWord) object;
+					
+					Lamda.callee.push(user.toArray());
+					UserWord.callee.push(user.toArray());
+					
+					DataStack.getInstance().push(user.toArray());
+					excute();
+					UserWord.callee.pop();
+					Lamda.callee.pop();
+					return null; 
+					
 				}
 				else{
-					Error.errorList("이","run");
+					Error.errorLamda("첫","<<");
 				}
 				return null;
 			}
@@ -43,11 +70,11 @@ public class ControlWords {
 			@Override
 			public String toString() {
 				// TODO Auto-generated method stub
-				return "run";
+				return "<<";
 			}
 		});
 	    	
-	    	
+		
 		PrimDict.getInstance().put("repeat",new PrimWord() {
 				
 			@Override
@@ -61,25 +88,18 @@ public class ControlWords {
 				if (obj2 instanceof Integer) {
 					Integer num = (Integer)obj2;
 						
-					if (obj1 instanceof List) {
-						List<Object> list = (List<Object> ) obj1;
+					if (obj1 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object> ) obj1;
 						
 						for(int i =0; i<num.intValue(); i++){
-							DataStack.getInstance().push(list);
-							PrimDict.getInstance().get("run").excute();
+							DataStack.getInstance().push(lamda);
+							PrimDict.getInstance().get("<<").excute();
 								
-							if(this.state == "continue") { 
-								this.state = "nil";
-								continue; 
-							}	
-							else if(this.state == "break") { 
-								this.state = "nil"; 
-								break; 
-							}
+	
 						}
 					}
 					else{
-						Error.errorList("첫번째","repeat");
+						Error.errorLamda("첫번째","repeat");
 					}
 				}
 				else{
@@ -106,30 +126,30 @@ public class ControlWords {
 				
 				if (obj1 instanceof Boolean) {	
 					Boolean bool = (Boolean)obj1;
-					List<Object> list1 = null;
-					List<Object> list2 = null;
+					Lamda lamda1 = null;
+					Lamda lamda2 = null;
 					
-					if (obj2 instanceof List) {	
-						list1 = (List<Object>)obj2;
+					if (obj2 instanceof Lamda) {	
+						lamda1 = (Lamda)obj2;
 					}
 					else{
-						Error.errorList("두번째","if");
+						Error.errorLamda("두번째","if");
 					}
 					
-					if (obj3 instanceof List) {	
-						list2 = (List<Object>)obj3;
+					if (obj3 instanceof Lamda) {	
+						lamda2 = (Lamda)obj3;
 					}
 					else{
-						Error.errorList("세번째","if");
+						Error.errorLamda("세번째","if");
 					}
 					
 					if(bool.booleanValue()){
-						DataStack.getInstance().push(list1);
-						PrimDict.getInstance().get("run").excute();
+						DataStack.getInstance().push(lamda1);
+						PrimDict.getInstance().get("<<").excute();
 					}
 					else{
-						DataStack.getInstance().push(list2);
-						PrimDict.getInstance().get("run").excute();
+						DataStack.getInstance().push(lamda2);
+						PrimDict.getInstance().get("<<").excute();
 					}
 					
 				}
@@ -153,17 +173,15 @@ public class ControlWords {
 
 				Object obj1 = DataStack.getInstance().pop();
 				
-					if (obj1 instanceof List) {
-						List<Object> list = (List<Object> ) obj1;
+					if (obj1 instanceof Lamda) {
+						Lamda<Object> lamda = (Lamda<Object> ) obj1;
 						while(true){
-							DataStack.getInstance().push(list);
-							PrimDict.getInstance().get("run").excute();
-							if(this.state == "continue") { this.state = "normal"; continue; }
-							else if(this.state == "break") { this.state = "normal"; break; }
-						}
+							DataStack.getInstance().push(lamda);
+							PrimDict.getInstance().get("<<").excute();
+	}
 					}
 					else{
-						Error.errorList("이","loop");
+						Error.errorLamda("이","loop");
 					}
 					return null;
 		}
@@ -172,54 +190,59 @@ public class ControlWords {
 		}
 	});
 	
+	PrimDict.getInstance().put("callee-next",new PrimWord() {
+		
+		@Override
+		public Object excute() throws Exception {
+			// TODO Auto-generated method stub
+			
+			if(Lamda.callee.size() < 2 ) 
+				throw new Exception("계산되는 람다가 부족합니다!");
+			
+			return null;
+		}
+		public String toString(){
+			return "callee-next";
+		}
+	});
 	
-    PrimDict.getInstance().put("continue",new PrimWord() {
+	PrimDict.getInstance().put("callee",new PrimWord() {
 		
 		@Override
-		public Object excute() {
+		public Object excute() throws Exception {
 			// TODO Auto-generated method stub
-			this.state = "continue";
+			if(UserWord.callee.size() <= 1 ) 
+				throw new Exception("다음 계산되는 람다가 없습니다!");
+
+			DataStack.getInstance().push(Lamda.callee.pop());
+
 			return null;
 		}
-		
-		@Override
-		public String toString() {
-			// TODO Auto-generated method stub
-			return "continue";
+		public String toString(){
+			return "callee";
 		}
 	});
-    
-    PrimDict.getInstance().put("break",new PrimWord() {
+	
+	PrimDict.getInstance().put("callee",new PrimWord() {
 		
 		@Override
-		public Object excute() {
+		public Object excute() throws Exception {
 			// TODO Auto-generated method stub
-			this.state = "break";
+			if(Lamda.callee.size() == 0 ) 
+				throw new Exception("현재 계산되는 람다가 없습니다!"); 
+			DataStack.getInstance().push(Lamda.callee.pop());
+			PrimDict.getInstance().get("<<").excute();
 			return null;
 		}
-		
-		@Override
-		public String toString() {
-			// TODO Auto-generated method stub
-			return "break";
+		public String toString(){
+			return "callee";
 		}
 	});
+	
+
+	
+
     
-    PrimDict.getInstance().put("normal",new PrimWord() {
-		
-		@Override
-		public Object excute() {
-			// TODO Auto-generated method stub
-			this.state = "normal";
-			return null;
-		}
-		
-		@Override
-		public String toString() {
-			// TODO Auto-generated method stub
-			return "normal";
-		}
-	});	
     
     PrimDict.getInstance().put("error",new PrimWord() {
 		
@@ -265,8 +288,7 @@ public class ControlWords {
 	});	
 
     
-    
-    PrimDict.getInstance().get("run").meaning = " list -- ";
+    PrimDict.getInstance().get("<<").meaning = " lamda -- ";
     
     
 	    }

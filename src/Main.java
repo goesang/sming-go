@@ -11,7 +11,7 @@ public class Main {
 		new StackWords();
 		new StringWords();
 		new DefineWords();
-		new ListWords();
+		new LamdaWords();
 		new MathWords();
 		new ControlWords();
 		new BooleanWords();
@@ -20,7 +20,8 @@ public class Main {
 		new CheckWords();
 		new ConvertWords();
 		new ProcessingWords();
+		new SymbolWords();
 		
-		interpreter.run(" ( 200 300 p-size 1 2 3 background ) draw");
+		interpreter.run("   pstack ");
 	}
 }
