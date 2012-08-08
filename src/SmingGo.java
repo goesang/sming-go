@@ -48,11 +48,13 @@ public class SmingGo {
         
             if (position >= text.length()) 
             	return null;
-        			}
+         }
+         
         int new_pos = position;		// 처음 실제 명령이 시작되는 위치
         
         while (!isWhitespace(text.charAt(new_pos))) {
-        	if(isSpacialSyntax(text.charAt(new_pos))) 
+          
+          if(isSpacialSyntax(text.charAt(new_pos))) 
         	{
         		new_pos ++; break;
         	}
@@ -154,14 +156,15 @@ public class SmingGo {
         		return null;
         	}
   		  }
-    catch (Exception e) {
-    	System.out.println(e.getMessage());
-    	return null;
-    }
+        catch (Exception e) {
+    	    System.out.println(e.getMessage());
+    	    return null;
+        }
     }
     
     public String nextCharsUpTo(char cr) {	//다음 단어(cr)까지 문자열로 감쌈
-        if (position >= text.length()) 
+      
+      if (position >= text.length()) 
         	return null; // 아무것도 입력받지 않았으면 널 반환
         
         int new_pos = position; 
@@ -177,12 +180,13 @@ public class SmingGo {
         return collector;
     }
     
-    public void run (String text) { // 텍스트를 번역함
+    public void run (String text) { // 사용자에 입력받은 문자을 번역함
     	this.text.append(text);
-        String word;
+      String word;
 
         while (	this.text.length() > this.position ) {
-        	try{
+        	
+          try{
         		word = this.nextWord().toLowerCase(); // 일단 소문자로 만듬
         	}
         	catch(Exception e){
@@ -190,10 +194,10 @@ public class SmingGo {
         	}
         	
         	try{
-        		List<Object> arrayList = UserDict.getInstance().get(word).toArray(); // 실수로 만들어 오류가 안나면 푸시
+        		Lamda lamda = UserDict.getInstance().get(word).toArray(); // 람다로 만들어서 스택에 넣음 아직 덜끝남 꼭 끝내셈!!!(8.8)
 	        	  
-        		if(arrayList != null){
-        			DataStack.getInstance().push(arrayList);
+        		if(lamda != null){
+        			DataStack.getInstance().push(lamda);
         			PrimDict.getInstance().get("<<").excute();
         			continue;	
         		}	
