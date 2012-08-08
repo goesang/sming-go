@@ -34,32 +34,32 @@ public class DataStack {
 		this.stack.clear();
 	}
 	public void print(){
-		System.out.println("¿⁄∑· ¥ıπÃ ( " + this.stack.size()+" ) :");
+		System.out.println("Ïä§ÌÉù ÏûêÎ£å ( " + this.stack.size()+" ) :");
 			for (Object obj : this.stack.toArray()){
 				StringBuilder str = new StringBuilder();
 				if (obj instanceof String) {
-					str.append("Str : " + "\""+(String) obj+"\"");
+					str.append("str : " + "\""+(String) obj+"\"");
 				}
 				else if (obj instanceof Boolean) {
-					str.append("Bool : " + obj.toString());
+					str.append("bool : " + obj.toString());
 				}
 				else if (obj instanceof Integer) {
-					str.append("Int : " + obj.toString());
+					str.append("int : " + obj.toString());
 				}
 				else if (obj instanceof Float) {
-					str.append("Float : " + obj.toString());
+					str.append("float : " + obj.toString());
 				}
 				else if (obj instanceof UserWord) {
-					str.append("Word : " + obj.toString());
+					str.append("word : " + obj.toString());
 				}
 				else if (obj instanceof PrimWord) {
-					str.append("Word : " + obj.toString());
+					str.append("word : " + obj.toString());
 				}
 				else if (obj instanceof Lamda) {
-					str.append("Lamda : " + obj.toString());
+					str.append("lamda : " + obj.toString());
 				}
 				else if (obj instanceof Symbol) {
-					str.append("Symbol : " + obj.toString());
+					str.append("symbol : " + obj.toString());
 				}
 				else{
 					str.append("??? : " + obj.toString());
