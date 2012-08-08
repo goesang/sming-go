@@ -2,22 +2,27 @@ import java.util.Stack;
 
 
 public class DataStack {
-	private Stack<Object> stack;
+	// 스밍고에 핵심을 이루는 기본 자료 스택!
+  private Stack<Object> stack; // 실제 저장되는 스택
+  String stackDummy; // 스택 검사를 위해 기억해 놓는 문자열
 	
-	private static DataStack single = new DataStack();
+	private static DataStack single = new DataStack(); // 싱글톤 준비
 	  
-	public static DataStack getInstance(){
+	public static DataStack getInstance(){ // 스택에 싱글톤을 내놓음
 		return single;
 	}
 	    
-	private DataStack(){
-		this.stack = new Stack<Object>();
+	private DataStack(){ // 초기화
+		this.stack = new Stack<Object>(); 
+    this.stackDummy = new String("");  
 	}
-	public void push(Object obj){
+	public void push(Object obj,String type){
 		this.stack.push(obj);
+    this.stackDummy.concat(type);
 	}
 	public Object pop(){
 		return this.stack.pop();
+    this.stackDummy = this.stackDummy.substring(1);
 	}
 	public Object peek(){
 		return this.stack.peek();
@@ -30,6 +35,8 @@ public class DataStack {
 	public String toString(){
 		return this.stack.toString();
 	}
+   
+   
 	public void clear(){
 		this.stack.clear();
 	}
