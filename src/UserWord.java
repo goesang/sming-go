@@ -40,4 +40,8 @@ public class UserWord {
 		}
 		return list;
 	}
+   
+  public void excute(){
+  //실행관련 내용을 입력하삼!!!!
+  }  
 }
