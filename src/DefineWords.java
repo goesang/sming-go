@@ -1,5 +1,5 @@
 public class DefineWords {
-
+//단어 정의와 관련된 단어 모음!
 	    public DefineWords(){
 		    	    	
 	    	PrimDict.getInstance().put(":",new PrimWord() {
@@ -8,17 +8,16 @@ public class DefineWords {
 				public Object excute() throws Exception{
 					// TODO Auto-generated method stub
 					
-					if(UserWord.defineState != null){ 
+          if(UserWord.defineState != null){ // 현재 정의되고 있는 단어가 있는지를 찾음(':' 단어 중복 실행 방지) 
 						throw new Exception("아직 정의되고 있는 단어가 있습니다!!!");
 					}
-					Lamda<Object> lamda  = new Lamda<Object>();
-					UserWord.defineState = lamda;
+					Lamda<Object> lamda  = new Lamda<Object>(); // 람다 생성
+					UserWord.defineState = lamda; // 현재 정의되고 있는 단어에 생성한 람다를 넣음
+          UserWord.defineName = SmingGo.getInstance().nextWord(); // : '단어이름'을 가지고 옮
 					
-					UserWord.defineName = SmingGo.getInstance().nextWord();
-					
-					if(UserWord.defineName == null) 
+					if(UserWord.defineName == null) //단어 이름이 없을 경우
 						throw new Exception("사용자 정의 단어의 이름을 정의하지 않았습니다 ! -- \":\"");
-					else if( SmingGo.getInstance().StringToObject(UserWord.defineName,true) != null)
+					else if( SmingGo.getInstance().StringToObject(UserWord.defineName,true) != null) // 있는데 중복일 경우!
 						throw new Exception("\""+UserWord.defineName+"\" 이름으로 정의된 단어가 이미 존재합니다! -- \":\"");
 
 					String str = SmingGo.getInstance().nextWord();
@@ -30,7 +29,12 @@ public class DefineWords {
 						if(objTmp != null)  lamda.add(objTmp);
 					}
 
-					
+					UserDict.getInstance().put( // 재귀 호출을 위해 이름 까지만 정의된 단어를 등록!
+							UserWord.defineName,
+							new UserWord(UserWord.defineName,
+							UserWord.defineMeaning,
+							UserWord.defineState));
+                     
 					SmingGo.getInstance().stackState = false;
 					
 					while(!SmingGo.getInstance().stackState){
@@ -83,21 +87,21 @@ public class DefineWords {
 				@Override
 				public Object excute() throws Exception{
 					// TODO Auto-generated method stub
-					Error.enoughMsg(2,"named");
+					Error.enoughMsg(2,"define");
 
 					Object obj2 = DataStack.getInstance().pop();
 					Object obj1 = DataStack.getInstance().pop();
 					
 					
 					if (obj1 instanceof Lamda) {
-						Lamda newObj1  = (Lamda) obj1;
+						Lamda lam = (Lamda) obj1;
 					
 						if (obj2 instanceof Symbol) {
-							Symbol newObj2  = (Symbol) obj2;
+							Symbol sym  = (Symbol) obj2;
 							
 							UserDict.getInstance().put(
-									newObj2.toString(), 
-									new UserWord(newObj2.toString(),null,newObj1));
+									sym.toString(), 
+									new UserWord(sym.toString(),null,lam));
 						}
 						else{
 							Error.errorSymbol("두","define");
@@ -115,8 +119,7 @@ public class DefineWords {
 			});	    	
 	    	
 
-	    	
-	    	PrimDict.getInstance().put("@",new PrimWord() {
+	    	PrimDict.getInstance().put("@int",new PrimWord() {
 				
 				@Override
 				public Object excute() throws Exception{
@@ -137,8 +140,119 @@ public class DefineWords {
 					return "@";
 				}
 			});
+
+ 	    	PrimDict.getInstance().put("@float",new PrimWord() {
+				
+				@Override
+				public Object excute() throws Exception{
+					// TODO Auto-generated method stub
+						
+					Object obj = SmingGo.getInstance().nextObject(false);
+					
+					if(obj != null){
+						DataStack.getInstance().push(obj);
+					}
+					else{
+						throw new Exception("자료가 있지 않습니다!!!");
+					}
+						return null;
+
+				}
+				public String toString(){
+					return "@";
+				}
+			});
+
+ 	    	PrimDict.getInstance().put("@num",new PrimWord() {
+				
+				@Override
+				public Object excute() throws Exception{
+					// TODO Auto-generated method stub
+						
+					Object obj = SmingGo.getInstance().nextObject(false);
+					
+					if(obj != null){
+						DataStack.getInstance().push(obj);
+					}
+					else{
+						throw new Exception("자료가 있지 않습니다!!!");
+					}
+						return null;
+
+				}
+				public String toString(){
+					return "@";
+				}
+			});
+
+	    	PrimDict.getInstance().put("@str",new PrimWord() { // 문자열만 담을 수 있음
+				
+				@Override
+				public Object excute() throws Exception{
+					// TODO Auto-generated method stub
+						
+					Object obj = SmingGo.getInstance().nextObject(false);
+					
+					if(obj != null){
+						DataStack.getInstance().push(obj);
+					}
+					else{
+						throw new Exception("자료가 있지 않습니다!!!");
+					}
+						return null;
+
+				}
+				public String toString(){
+					return "@";
+				}
+			});
+
 	    	
-	    	
+	    	PrimDict.getInstance().put("@sym",new PrimWord() { // 심볼만 담을수 있음
+				
+				@Override
+				public Object excute() throws Exception{
+					// TODO Auto-generated method stub
+						
+					Object obj = SmingGo.getInstance().nextObject(false);
+					
+					if(obj != null){
+						DataStack.getInstance().push(obj);
+					}
+					else{
+						throw new Exception("자료가 있지 않습니다!!!");
+					}
+						return null;
+
+				}
+				public String toString(){
+					return "@";
+				}
+			});
+ 
+
+	    	PrimDict.getInstance().put("@",new PrimWord() { // 워드만 담을수 있음!
+				
+				@Override
+				public Object excute() throws Exception{
+					// TODO Auto-generated method stub
+						
+					Object obj = SmingGo.getInstance().nextObject(false);
+					
+					if(obj != null){
+						DataStack.getInstance().push(obj);
+					}
+					else{
+						throw new Exception("자료가 있지 않습니다!!!");
+					}
+						return null;
+
+				}
+				public String toString(){
+					return "@";
+				}
+			});
+         
 	    	
 	    	PrimDict.getInstance().put("meaning",new PrimWord() {
 				
