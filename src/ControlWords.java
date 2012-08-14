@@ -1,8 +1,8 @@
 public class ControlWords {
-
+//각종 제어문에 관련된 부분
 	public ControlWords(){
 	    	
-		PrimDict.getInstance().put("<<",new PrimWord() {
+		PrimDict.getInstance().put("<<",new PrimWord() { // 람다를 실행하는 단어
 				
 			@Override
 			public Object excute() throws Exception {
@@ -10,23 +10,23 @@ public class ControlWords {
 				Error.enoughMsg(1,"<<");					
 				Object object = DataStack.getInstance().pop();
 					
-				if (object instanceof Lamda) {
-					System.gc();
+				if (object instanceof Lamda) { // 람다일 경우
+					System.gc(); // 혹시모를 메모리 쓰레기를 제거
 					Lamda lamda = (Lamda) object;
 					Lamda.callee.push(lamda); // 현재 진행되는 람다에 넣음
 					
-					for (Object ob : lamda){
-						if (ob instanceof PrimWord) {
-							PrimWord fu = (PrimWord) ob;
-							Object obj = fu.excute();
+					for (Object ob : lamda){ // 하나 하나 꺼내서
+						if (ob instanceof PrimWord) { // 기본 단어의 경우
+							PrimWord word = (PrimWord) ob; // 기본 단어로 전환하여 실행함
+							Object obj = word.excute();
 							if(obj != null)
-								DataStack.getInstance().push(obj);
+								DataStack.getInstance().push(obj); // 나중에 빼자 %%%%
 						}
 								
-						else if (ob instanceof UserWord) {
-							UserWord uf = (UserWord) ob;
-							DataStack.getInstance().push(uf.toArray());
-							UserWord.callee.push(uf.toArray());
+						else if (ob instanceof UserWord) { // 사용자 단어 의 경우
+							UserWord word = (UserWord) ob; // 
+							DataStack.getInstance().push(word.toArray());
+							UserWord.callee.push(word.toArray());
 							excute();
 							UserWord.callee.pop();
 						}
