@@ -138,8 +138,6 @@ public class BooleanWords {
 			});
 	     
 		    
-		    PrimDict.getInstance().get("true").meaning = " -- bool ";
-		    PrimDict.getInstance().get("false").meaning = " -- bool ";
 		    PrimDict.getInstance().get("=?").meaning = " Anony x -- bool ";
 		    PrimDict.getInstance().get("!?").meaning = " x x -- bool ";
 		    PrimDict.getInstance().get("and").meaning = " bool bool -- bool ";
