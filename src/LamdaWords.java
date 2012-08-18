@@ -379,11 +379,11 @@ public class LamdaWords {
 			}
 		});
     	
-    	PrimDict.getInstance().get("(").im = true;
-    	PrimDict.getInstance().get(")").im = true;
+    	PrimDict.getInstance().get("(").level = 1;
+    	PrimDict.getInstance().get(")").level = 1;
     	
-    	PrimDict.getInstance().get("=>").im = true;
-    	PrimDict.getInstance().get("=").im = true;
+    	PrimDict.getInstance().get("=>").level = 1;
+    	PrimDict.getInstance().get("=").level = 1;
     	
     	PrimDict.getInstance().get("(").meaning = " X... -- Spacial ";
     	PrimDict.getInstance().get("(").meaning = " Spacial -- Lamda ";
