@@ -30,7 +30,7 @@ public class LamdaWords {
 				SmingGo.getInstance().stackState = false; // 스택에 넣지 않음
 				
 				while(!SmingGo.getInstance().stackState){ // 스택에 넣지 않는 동안 리스트에 넣음
-					obj = SmingGo.getInstance().nextObject(true);
+					obj = SmingGo.getInstance().nextObject(1);
 					if(obj != null) 
 						lamda.add(obj);
 				}
@@ -64,7 +64,7 @@ public class LamdaWords {
 					Lamda.defineState.pop();
 					Object obj;
 					while(!SmingGo.getInstance().stackState){
-						obj = SmingGo.getInstance().nextObject(true);
+						obj = SmingGo.getInstance().nextObject(1);
 						if(obj != null) 
 							Lamda.defineState.peek().add(obj);
 					}
@@ -179,7 +179,7 @@ public class LamdaWords {
 					throw new Exception("현재 람다 정의 상태가 아닙니다!!!");
 				if(Lamda.defineState.peek().size() == 0)
 					throw new Exception("현재 람다에 자료가 없습니다!!!");
-				Object obj = SmingGo.getInstance().nextObject(true);
+				Object obj = SmingGo.getInstance().nextObject(1);
 				
 				if (obj instanceof Symbol) {
 					Symbol sym = (Symbol) obj;	
