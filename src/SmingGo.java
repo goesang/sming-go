@@ -71,58 +71,7 @@ public class SmingGo {
         return collector;
     }
     
-    public Object nextObject (boolean im) { // 객체를 반환하는 매서드
-    	
-    	String word = this.nextWord().toLowerCase();
-    	
-    	if (Lamda.defineState.size() >= 0  ){
-        	try{	// 람다 정의중에 변수를 찾아냄
-        		for(Lamda lamda : Lamda.defineState){
-        			Object obj = lamda.get(new Symbol(word));
-        			if(obj != null) 
-        				return obj; 
-        		}
-        	} 
-            catch(Exception e){}
-    	}
-    	
-    	try{	// 사용자 정의 단어를 찾아냄
-    		if(UserDict.getInstance().get(word) != null)  		
-    			return (UserDict.getInstance().get(word));
-    	} 
-        catch(Exception e){}
-    	
-        try{
-        	return (Integer.parseInt(word));
-        } // 정수형 단어이면 정수로 변환
-        catch(Exception e){}
-        
-        try{
-        	return(Float.parseFloat(word));
-        } // 부동 소수형 단어이면 부동 소수로 변환
-        catch(Exception e){}
-       
-        try{  
-        	if(PrimDict.getInstance().get(word).im && im)	
-        		return(PrimDict.getInstance().get(word).excute());
-        	else 
-        		return PrimDict.getInstance().get(word);
-        }
-        catch(NullPointerException e){ 
-  		  System.out.println("이 사전에 '" + word+"'이란 단어는 없습니다!");
-  		System.exit(0);
-  		 return null;
-        }
-        catch (Exception e) {
-        	System.out.println(e.getMessage());
-        	System.exit(0);
-        	return null;
-        }
-    }
-    
-    
-    
-    /*
+
     
     public Object nextObject (int level) { // 객체를 반환하는 매서드로 레벨을 인자로 받아
                                            // 단어검색시 레벨보다 작으면 객체로 반환(아니면 실행)
@@ -172,7 +121,7 @@ public class SmingGo {
         	System.exit(0);
         	return null;
         }
-    }    */
+    }   
     
     
     
