@@ -30,6 +30,10 @@ public class CommentWords {
 		    PrimDict.getInstance().get("!!~").im = true;
 		    PrimDict.getInstance().get("!~").im = true;
 		    
+     //    PrimDict.getInstance().get("!!~").level = 2;         @@@
+		 //   PrimDict.getInstance().get("!~").level = 2;          @@@
+          
+          
 		    PrimDict.getInstance().get("!!~").meaning = " -- ";
 		    PrimDict.getInstance().get("!~").meaning = " -- ";			
 	}
