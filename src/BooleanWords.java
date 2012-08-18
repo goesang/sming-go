@@ -2,38 +2,6 @@ public class BooleanWords {
 //부울대수와 관련한 기본 단어들 정의
 	public BooleanWords(){
 	    	
-		PrimDict.getInstance().put("true",new PrimWord() {	
-			//부울대수 단어로써 스택에 true값을 넣음
-				@Override
-				public Object excute() {
-					// TODO Auto-generated method stub
-              DataStack.getInstance().push(true);
-							return null;
-				}
-				
-				@Override
-				public String toString() {
-					// TODO Auto-generated method stub
-					return "true";
-				}
-			});
-	     
-	     PrimDict.getInstance().put("false",new PrimWord() {
-				//부울대수 단어로써 스택에 false값을 넣음
-				@Override
-				public Object excute() {
-					// TODO Auto-generated method stub
-              DataStack.getInstance().push(true);
-							return null;
-				}
-				
-				@Override
-				public String toString() {
-					// TODO Auto-generated method stub
-					return "false";
-				}
-			});
-	     
 	     PrimDict.getInstance().put("=?",new PrimWord() {
 				//부울대수 연산자로 서로가 같은지 따져 물음.
 				@Override
@@ -55,7 +23,7 @@ public class BooleanWords {
 	     
 	     
 	     PrimDict.getInstance().put("!?",new PrimWord() {
- 			﻿ //부울대수 연산자로 서로가 다른지 따져 물음.
+ 			  //부울대수 연산자로 서로가 다른지 따져 물음.
 				@Override
 				public Object excute() {
 					// TODO Auto-generated method stub
@@ -74,7 +42,7 @@ public class BooleanWords {
 			});
 	     
 	     PrimDict.getInstance().put("and",new PrimWord() {
- 			﻿ //부울대수 연산자로 서로가 'true' 일 경우 'true'를 스택에 넣음.
+ 			  //부울대수 연산자로 서로가 'true' 일 경우 'true'를 스택에 넣음.
 				
 				@Override
 				public Object excute() throws Exception{
@@ -169,9 +137,6 @@ public class BooleanWords {
 				}
 			});
 	     
-
-		    PrimDict.getInstance().get("true").im = true;
-		    PrimDict.getInstance().get("false").im = true;
 		    
 		    PrimDict.getInstance().get("true").meaning = " -- bool ";
 		    PrimDict.getInstance().get("false").meaning = " -- bool ";
