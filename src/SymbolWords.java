@@ -53,6 +53,6 @@ public class SymbolWords {
 		});
     	
     	PrimDict.getInstance().get("#").im = true;
-    	
+      // PrimDict.getInstance().get("#").level = 2; @@@
     }
 }
