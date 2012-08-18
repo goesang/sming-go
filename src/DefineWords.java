@@ -284,6 +284,9 @@ public class DefineWords {
 	    	
 	    	PrimDict.getInstance().get(":").im = true;
 	    	PrimDict.getInstance().get(";").im = true;
+          
+	      // PrimDict.getInstance().get(":").level = 2; @@@
+	      // PrimDict.getInstance().get(";").level = 2; @@@         
 	    	
 	    	PrimDict.getInstance().get(":").meaning = " -- word ";
 	    	PrimDict.getInstance().get("@").meaning = " -- x ";	
