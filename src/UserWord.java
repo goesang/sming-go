@@ -15,7 +15,7 @@ public class UserWord {
 	private Lamda<Object> list;
 	private String name;
 
-	public boolean immediate;
+	public int level;
 
 	public UserWord(String name,String meaning,Lamda<Object> list){
 		this.name = name;
