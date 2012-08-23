@@ -164,6 +164,120 @@ public class ControlWords {
 		}
 	});
  	
+    
+    PrimDict.getInstance().put("when",new PrimWord() {
+		
+		@Override
+		public Object excute() throws Exception {
+			// TODO Auto-generated method stub
+			Error.enoughMsg(3,"when");
+							
+				Object obj2 = DataStack.getInstance().pop();
+				Object obj1 = DataStack.getInstance().pop();
+				
+				if (obj1 instanceof Boolean) {	
+					Boolean bool = (Boolean)obj1;
+					Lamda lamda1 = null;
+					
+					if (obj2 instanceof Lamda) {	
+						lamda1 = (Lamda)obj2;
+					}
+					else{
+						Error.errorLamda("두번째","when");
+					}
+					
+					if(bool.booleanValue()){
+						DataStack.getInstance().push(lamda1);
+						PrimDict.getInstance().get("<<").excute();
+					}
+					else{
+						return null;
+					}
+					
+				}
+				else { 
+					Error.errorBool("첫번째","when");
+				}
+				
+				return null;
+		}
+		public String toString(){
+			return "when";
+		}
+	});   
+    
+    /* 앞으로 만들 단어들
+    PrimDict.getInstance().put("cond",new PrimWord() {
+		
+		@Override
+		public Object excute() throws Exception {
+			// TODO Auto-generated method stub
+			
+		  
+			return null;
+		}
+		public String toString(){
+			return "cond";
+		}
+	});
+   
+    	PrimDict.getInstance().put("while",new PrimWord() {
+		
+		@Override
+		public Object excute() throws Exception {
+			// TODO Auto-generated method stub
+			
+		  
+			return null;
+		}
+		public String toString(){
+			return "while";
+		}
+	});   
+        
+   PrimDict.getInstance().put("case",new PrimWord() {
+		
+		@Override
+		public Object excute() throws Exception {
+			// TODO Auto-generated method stub
+			
+		  
+			return null;
+		}
+		public String toString(){
+			return "case";
+		}
+	});
+   
+    	PrimDict.getInstance().put("foreach",new PrimWord() {
+		
+		@Override
+		public Object excute() throws Exception {
+			// TODO Auto-generated method stub
+			
+		  
+			return null;
+		}
+		public String toString(){
+			return "foreach";
+		}
+	});
+   
+   PrimDict.getInstance().put("try-catch",new PrimWord() {
+		
+		@Override
+		public Object excute() throws Exception {
+			// TODO Auto-generated method stub
+			
+		  
+			return null;
+		}
+		public String toString(){
+			return "try-catch";
+		}
+	});   
+    
+*/
 	PrimDict.getInstance().put("loop",new PrimWord() {
 		
 		@Override
