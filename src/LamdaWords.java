@@ -72,13 +72,64 @@ public class LamdaWords {
 				return null;
 			}
 			
+         
+    /* 배열형 람다를 만드는 단어 아직 미완성 (8.23)
+    PrimDict.getInstance().put(")Arr",new PrimWord() {
+    		//목록을 만드는 단어			
+			@Override
+			public Object excute() {
+				// TODO Auto-generated method stub
+
+		  
+				return null;
+			}   
+         
 			@Override
 			public String toString() {
 				// TODO Auto-generated method stub
-				return ")";
+				return ")Arr";
 			}
 			
-		});
+		}); */ 
+      
+          /* 배열형 람다를 간단하게 생성하는 단어 아직 미완성 (8.23)
+    PrimDict.getInstance().put("Array",new PrimWord() {
+    		//목록을 만드는 단어			
+			@Override
+			public Object excute() {
+				// TODO Auto-generated method stub
+
+		  
+				return null;
+			}   
+         
+			@Override
+			public String toString() {
+				// TODO Auto-generated method stub
+				return "Array";
+			}
+			
+		}); */ 
+      
+      
+    /* 배열형 람다의 자료를 색인으로 들어가는 단어 아직 미완성 (8.23)
+    PrimDict.getInstance().put("index",new PrimWord() {
+    		//목록을 만드는 단어			
+			@Override
+			public Object excute() {
+				// TODO Auto-generated method stub
+
+		  
+				return null;
+			}   
+         
+			@Override
+			public String toString() {
+				// TODO Auto-generated method stub
+				return "index";
+			}
+			
+		}); */ 
     	
     	PrimDict.getInstance().put("add",new PrimWord() {
     		//목록에 단어를 넣는 단어
@@ -271,6 +322,7 @@ public class LamdaWords {
 			}
 		});
        	
+/* 아직 미완성          
     	PrimDict.getInstance().put("=",new PrimWord() {
     		//목록의 크기를 알아내는 단어
 			@Override
@@ -293,7 +345,7 @@ public class LamdaWords {
 				return "=";
 			}
 		});
-    	
+*/    	
     	PrimDict.getInstance().put("car",new PrimWord() {
     		//목록의 첫번째 단어를 뽑아내는 단어
 			@Override
