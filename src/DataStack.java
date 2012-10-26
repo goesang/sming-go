@@ -4,7 +4,6 @@ import java.util.Stack;
 public class DataStack {
 	// 스밍고에 핵심을 이루는 기본 자료 스택!
   private Stack<Object> stack; // 실제 저장되는 스택
-  String stackDummy; // 스택 검사를 위해 기억해 놓는 문자열
 	
 	private static DataStack single = new DataStack(); // 싱글톤 준비
 	  
@@ -13,16 +12,13 @@ public class DataStack {
 	}
 	    
 	private DataStack(){ // 초기화
-		this.stack = new Stack<Object>(); 
-    this.stackDummy = new String("");  
+		this.stack = new Stack<Object>();  
 	}
-	public void push(Object obj,String type){
+	public void push(Object obj){
 		this.stack.push(obj);
-    this.stackDummy.concat(type);
 	}
 	public Object pop(){
 		return this.stack.pop();
-    this.stackDummy = this.stackDummy.substring(1);
 	}
 	public Object peek(){
 		return this.stack.peek();

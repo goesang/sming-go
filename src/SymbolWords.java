@@ -8,16 +8,18 @@ public class SymbolWords {
 				public Object excute() throws Exception {
 				// TODO Auto-generated method stub
          DataStack.getInstance().push(
-								new Symbol(SmingGo.getInstance().nextWord());
-				 }
+								new Symbol(SmingGo.getInstance().nextWord()));
+				
         return null;
-			}
+			} 
+			
 			@Override
 			public String toString() {
 				// TODO Auto-generated method stub
 				return "#";
 			}
 		});
+
     	
     	PrimDict.getInstance().put("union",new PrimWord() {
 			//심볼 두개를 받아 심볼 한개로 만듬

@@ -6,36 +6,37 @@ public class LamdaWords {
     		//목록을 만드는 단어			
 			@Override
 			public Object excute() {
-				// TODO Auto-generated method stub	
-				Object obj = null;
-				Lamda<Object> lamda  = new Lamda<Object>(); //람다 생성
-				
-				if(UserWord.defineState != null){ // 현재 단어 정의 중인지 확인
-					if(!Lamda.defineState.empty()){ // 현재 다른 람다가 정의되는지 확인
-						Lamda.defineState.peek().add(lamda); 
-						//단어가 정의되는 중이고 또 람다가 정의중이라면 람다에 현재 람다를 넣는다
-					}
-					else{
-						UserWord.defineState.add(lamda); 
-						// 단어 정의되고 람다가 정의중이 아니라면 걍 사용자 정의에 넣는다.
-					}
-				}else{ // 단어가 정의되지 않을때
-					if(!Lamda.defineState.empty()){ // 현재 다른 람다가 정의되는지 확인
-						Lamda.defineState.peek().add(lamda); 
-						//단어가 정의되지 않고 또 람다가 정의중이라면 람다에 현재 람다를 넣는다	
-					}
-				}
-				
-				Lamda.defineState.push(lamda); // 현재 정의되는 람다를 가리킴
-				SmingGo.getInstance().stackState = false; // 스택에 넣지 않음
-				
-				while(!SmingGo.getInstance().stackState){ // 스택에 넣지 않는 동안 리스트에 넣음
-					obj = SmingGo.getInstance().nextObject(1);
-					if(obj != null) 
-						lamda.add(obj);
-				}
-				return null;
-			}
+                // TODO Auto-generated method stub  
+
+                Object obj = null;
+                Lamda<Object> lamda  = new Lamda<Object>(); //람다 생성
+                
+                if(UserWord.defineState != null){ // 현재 단어 정의 중인지 확인
+                        if(!Lamda.defineState.empty()){ // 현재 다른 람다가 정의되는지 확인
+                                Lamda.defineState.peek().add(lamda); 
+                                //단어가 정의되는 중이고 또 람다가 정의중이라면 람다에 현재 람다를 넣는다
+                        }
+                        else{
+                                UserWord.defineState.add(lamda); 
+                                // 단어 정의되고 람다가 정의중이 아니라면 걍 사용자 정의에 넣는다.
+                        }
+                }else{ // 단어가 정의되지 않을때
+                        if(!Lamda.defineState.empty()){ // 현재 다른 람다가 정의되는지 확인
+                                Lamda.defineState.peek().add(lamda); 
+                                //단어가 정의되지 않고 또 람다가 정의중이라면 람다에 현재 람다를 넣는다       
+                        }
+                }
+                
+                Lamda.defineState.push(lamda); // 새로 생성한 람다를  정의되는 람다로 지정함
+                int id = Lamda.defineState.size(); // 람다 단어끼리 쌍을 이룰수 있도록 id를 부여!
+
+                while(id == Lamda.defineState.size() ){ // 현재 람다가 빠지면 자료를 넣지 않음!
+                        obj = SmingGo.getInstance().nextObject(0);
+                        if(obj != null)	lamda.add(obj);
+                }
+                return null;
+        }
+
 			
 			@Override
 			public String toString() {
@@ -49,87 +50,29 @@ public class LamdaWords {
     		//목록을 만드는 단어			
 			@Override
 			public Object excute() {
-				// TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
-				if(Lamda.defineState.size() == 1){
-					SmingGo.getInstance().stackState = true ;
-					if(UserWord.defineState ==  null){
-						DataStack.getInstance().push(Lamda.defineState.pop());
-					}
-					else{
-						Lamda.defineState.pop();
-					}
-				}
-				else{
-					Lamda.defineState.pop();
-					Object obj;
-					while(!SmingGo.getInstance().stackState){
-						obj = SmingGo.getInstance().nextObject(1);
-						if(obj != null) 
-							Lamda.defineState.peek().add(obj);
-					}
-				}
-				return null;
-			}
-			
-         
-    /* 배열형 람다를 만드는 단어 아직 미완성 (8.23)
-    PrimDict.getInstance().put(")Arr",new PrimWord() {
-    		//목록을 만드는 단어			
-			@Override
-			public Object excute() {
-				// TODO Auto-generated method stub
+                if(Lamda.defineState.size() == 1){ // 최종적으로 1개의 람다가 정의시!
 
-		  
-				return null;
-			}   
-         
-			@Override
-			public String toString() {
-				// TODO Auto-generated method stub
-				return ")Arr";
-			}
-			
-		}); */ 
-      
-          /* 배열형 람다를 간단하게 생성하는 단어 아직 미완성 (8.23)
-    PrimDict.getInstance().put("Array",new PrimWord() {
-    		//목록을 만드는 단어			
-			@Override
-			public Object excute() {
-				// TODO Auto-generated method stub
+                        if(UserWord.defineState ==  null){ //사용자 단어가 정의중이지 않을때!
+                                DataStack.getInstance().push(Lamda.defineState.pop());
+                                //스택에다가 최종 정의한 람다를 넣는다!
+                        }
+                        else{ // 사용자 단어 정의 중일때!
+                                Lamda.defineState.pop();
+                        }
+                }
+                else{ // 여러 람다가 정의중일시
+                        Lamda.defineState.pop();
+               
+                }
+               
+                return null;
+        }
 
-		  
-				return null;
-			}   
+    	});
          
-			@Override
-			public String toString() {
-				// TODO Auto-generated method stub
-				return "Array";
-			}
-			
-		}); */ 
-      
-      
-    /* 배열형 람다의 자료를 색인으로 들어가는 단어 아직 미완성 (8.23)
-    PrimDict.getInstance().put("index",new PrimWord() {
-    		//목록을 만드는 단어			
-			@Override
-			public Object excute() {
-				// TODO Auto-generated method stub
-
-		  
-				return null;
-			}   
-         
-			@Override
-			public String toString() {
-				// TODO Auto-generated method stub
-				return "index";
-			}
-			
-		}); */ 
+   
     	
     	PrimDict.getInstance().put("add",new PrimWord() {
     		//목록에 단어를 넣는 단어
@@ -322,7 +265,7 @@ public class LamdaWords {
 			}
 		});
        	
-/* 아직 미완성          
+       
     	PrimDict.getInstance().put("=",new PrimWord() {
     		//목록의 크기를 알아내는 단어
 			@Override
@@ -345,7 +288,7 @@ public class LamdaWords {
 				return "=";
 			}
 		});
-*/    	
+  	
     	PrimDict.getInstance().put("car",new PrimWord() {
     		//목록의 첫번째 단어를 뽑아내는 단어
 			@Override
@@ -445,7 +388,8 @@ public class LamdaWords {
     	PrimDict.getInstance().get("car").meaning = " Lamda -- X ";	
     	PrimDict.getInstance().get("cdr").meaning = " Lamda -- Lamda ";	
     	PrimDict.getInstance().get("concat").meaning = " Lamda Lamda -- Lamda ";	
-    }
+    	}
+ 
     
 }
 

@@ -54,7 +54,7 @@ public class BooleanWords {
 						Boolean bool1 = (Boolean)obj1;
 						if (obj2 instanceof Boolean) {	
 							Boolean bool2 = (Boolean)obj2;
-							DataStack.getInstace().push(bool1.booleanValue() && bool2.booleanValue());      
+							DataStack.getInstance().push(bool1.booleanValue() && bool2.booleanValue());     
 							return null;
 						}
 						else{
@@ -88,7 +88,7 @@ public class BooleanWords {
 						Boolean bool1 = (Boolean)obj1;
 						if (obj2 instanceof Boolean) {	
 							Boolean bool2 = (Boolean)obj2;
-							DataStack.getInstace().push(bool1.booleanValue() || bool2.booleanValue());      
+							DataStack.getInstance().push(bool1.booleanValue() || bool2.booleanValue());      
 							return null;
 						}
 						else{
@@ -120,7 +120,7 @@ public class BooleanWords {
 					if (obj1 instanceof Boolean) {	
 						Boolean bool1 = (Boolean)obj1;
                   
-            DataStack.getInstace().push(!bool1.booleanValue());      
+            DataStack.getInstance().push(!bool1.booleanValue());      
 						 return null;
 					}
 					else{

@@ -12,15 +12,15 @@ public class UserWord {
 	
 	public String meaning;
 	
-	private Lamda<Object> list;
+	private Lamda<Object> lamda;
 	private String name;
 
 	public int level;
 
-	public UserWord(String name,String meaning,Lamda<Object> list){
+	public UserWord(String name,String meaning,Lamda<Object> lamda){
 		this.name = name;
 		this.meaning = meaning;
-		this.list = list;
+		this.lamda = lamda;
 	}
 
 	public String toString(){
@@ -28,20 +28,40 @@ public class UserWord {
 	}
 
 	public Lamda<Object> toArray(){
-		Lamda<Object> list = new Lamda<Object>();
+		Lamda<Object> lamda = new Lamda<Object>();
 	
-		for(Object obj : this.list)
+		for(Object obj : this.lamda)
 		{
 			if (obj instanceof UserWord) {
 				UserWord new_name = (UserWord) obj;
-				list.addAll(new_name.toArray());
+				lamda.addAll(new_name.toArray());
 			}
-			else list.add(obj);
+			else lamda.add(obj);
 		}
-		return list;
+		return lamda;
 	}
    
-  public void excute(){
-  //실행관련 내용을 입력하삼!!!!
+  public void excute() throws Exception {			
+			
+			Lamda.callee.push(this.lamda); // 현재 진행되는 람다에 넣음
+			
+			for (Object ob : this.lamda){ // 하나 하나 꺼내서
+				if (ob instanceof PrimWord) { // 기본 단어의 경우
+					PrimWord word = (PrimWord) ob; // 기본 단어로 전환하여 실행함
+					Object obj = word.excute();
+					if(obj != null)
+						DataStack.getInstance().push(obj); // 나중에 빼자 %%%%
+				}
+						
+				else if (ob instanceof UserWord) { // 사용자 단어 의 경우
+					UserWord word = (UserWord) ob; // 
+					word.excute();
+				}
+				
+				else{ 
+					DataStack.getInstance().push(ob);
+				}
+			}
+			Lamda.callee.pop();
   }  
 }

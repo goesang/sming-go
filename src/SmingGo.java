@@ -74,53 +74,62 @@ public class SmingGo {
 
     
     public Object nextObject (int level) { // 객체를 반환하는 매서드로 레벨을 인자로 받아
-                                           // 단어검색시 레벨보다 작으면 객체로 반환(아니면 실행)
-    	
-    	String word = this.nextWord().toLowerCase(); // 걍 단어를 소문자로 바꿈
-    	
+        // 단어검색시 레벨보다 작으면 객체로 반환(아니면 실행)
+
+    	String word = this.nextWord(); 
+
+    	if (word == null) System.exit(0);
+
     	if (Lamda.defineState.size() >= 0  ){ // 지금 정의중인 상태인지 검사
-        	try{	// 람다 정의중에 변수를 찾아냄
-        		for(Lamda lamda : Lamda.defineState){
-        			Object obj = lamda.get(new Symbol(word));
-        			if(obj != null) 
-        				return obj; 
-        		}
-        	} 
-            catch(Exception e){}
+    		try{	// 람다 정의중에 변수를 찾아냄
+    			for(Lamda lamda : Lamda.defineState){
+    				Object obj = lamda.get(new Symbol(word));
+    				if(obj != null) 
+    					return obj; 
+    			}
+    		} 
+    		catch(Exception e){}
     	}
-    	
+
     	try{	// 사용자 정의 단어를 찾아냄
-    		if(UserDict.getInstance().get(word) != null)  		
-    			return (UserDict.getInstance().get(word));
+    		if(UserDict.getInstance().get(word).level >= level){
+    			UserDict.getInstance().get(word).excute();
+    			return null;
+    		}
+    		else 
+    			return UserDict.getInstance().get(word);
     	} 
-        catch(Exception e){}
-    	
-        try{
-        	return (Integer.parseInt(word));
-        } // 정수형 단어이면 정수로 변환
-        catch(Exception e){}
-        
-        try{
-        	return(Float.parseFloat(word));
-        } // 부동 소수형 단어이면 부동 소수로 변환
-        catch(Exception e){}
-       
-        try{  
-        	if(PrimDict.getInstance().get(word).level >= level)	
-        		return(PrimDict.getInstance().get(word).excute());
-        	else 
-        		return PrimDict.getInstance().get(word);
-        }
-        catch(NullPointerException e){ 
-  		  System.out.println("이 사전에 '" + word+"'이란 단어는 없습니다!");
-  		  System.exit(0);
-  		 return null;
-        }
-        catch (Exception e) {
-        	System.out.println(e.getMessage());
-        	System.exit(0);
-        	return null;
-        }
+    	catch(Exception e){}
+
+    	try{
+    		return (Integer.parseInt(word));
+    	} // 정수형 단어이면 정수로 변환
+    	catch(Exception e){}
+
+    	try{
+
+    		return(Float.parseFloat(word));
+
+    	} // 부동 소수형 단어이면 부동 소수로 변환
+    	catch(Exception e){}
+
+    	try{  
+
+    		if(PrimDict.getInstance().get(word).level >= level)	
+    			return(PrimDict.getInstance().get(word).excute());
+    		else 
+    			return PrimDict.getInstance().get(word);
+    	}
+    	catch(NullPointerException e){ 
+    		System.out.println("이 사전에 '" + word+"'이란 단어는 없습니다!");
+    		System.exit(0);
+    		return null;
+    	}
+    	catch (Exception e) {
+    		System.out.println(e.getMessage());
+    		System.exit(0);
+    		return null;
+    	}
     }   
     
     
@@ -170,73 +179,27 @@ public class SmingGo {
       if (position >= text.length()) 
         	return null; // 아무것도 입력받지 않았으면 널 반환
         
-        int new_pos = position; 
+        int newPosition = position; 
         
-        while (text.charAt(new_pos) != cr) {
-            new_pos ++;
-            if (new_pos >= text.length())
+        while (text.charAt(newPosition) != cr) {
+        	newPosition ++;
+            if (newPosition >= text.length())
                 System.out.println("문자열의 길이를 초과하여 오류가 발생했습니다!");
         }
-        String collector = text.substring(position, new_pos);
-        new_pos ++;
-        position =  new_pos; // Skip the delimiter.
+        String collector = text.substring(position, newPosition);
+        newPosition ++;
+        position =  newPosition; // Skip the delimiter.
         return collector;
     }
     
     public void run (String text) { // 사용자에 입력받은 문자을 번역함
-    	this.text.append(text);
+      this.text.append(text);
       String word;
 
         while (	this.text.length() > this.position ) {
-        	
-          try{
-        		word = this.nextWord().toLowerCase(); // 일단 소문자로 만듬
-        	}
-        	catch(Exception e){
-        		return;
-        	}
-        	
-        	try{
-        		Lamda lamda = UserDict.getInstance().get(word).toArray(); // 람다로 만들어서 스택에 넣음 아직 덜끝남 꼭 끝내셈!!!(8.8)
-	        	  
-        		if(lamda != null){
-        			DataStack.getInstance().push(lamda);
-        			PrimDict.getInstance().get("<<").excute();
-        			continue;	
-        		}	
-        	} catch(Exception e){}
-	          	
-            try{
-            	DataStack.getInstance().push(Integer.parseInt(word));		
-            	continue; 
-            } // 정수로 만들어 오류가 안나면 푸시
-            catch(Exception e){}
-           
-            try{  
-            	DataStack.getInstance().push(Float.parseFloat(word));
-            	continue;	
-            } // 부동 소수로 만들어 오류가 안나면 푸시
-            catch(Exception e){}
-
-	          
-            try{
-            	Object obj = PrimDict.getInstance().get(word).excute(); // 실수로 만들어 오류가 안나면 푸시
-            	
-            	if(obj != null){
-            		DataStack.getInstance().push(obj);
-            		continue;
-            	}	
-            }
-            catch(NullPointerException e){ 
-            	System.out.println("이 사전에 '" + word+"'이란 단어는 없습니다!");
-            	System.exit(0);
-            	return;
-            }
-            catch (Exception e) {
-            	System.out.println(e.getMessage());
-            	System.exit(0);
-            	return;
-            }
+        	Object obj = nextObject(0);
+        	if(obj != null)
+        	DataStack.getInstance().push(obj);
         }
     } 
 }

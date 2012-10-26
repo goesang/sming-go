@@ -21,7 +21,7 @@ public class VarWord {
 							new UserWord(newObj2.toString(),"X -- ",lamda));
 				}
 				else{
-					Error.errorSymbol("µÎ","named");
+					Error.errorSymbol("ï¿½ï¿½","named");
 					}
 				return null;
 				
@@ -41,7 +41,7 @@ public class VarWord {
 				Error.enoughMsg(1,"=");
 
 				Object obj1 = DataStack.getInstance().pop();
-				Object obj2 = SmingGo.getInstance().nextObject(true);
+				Object obj2 = SmingGo.getInstance().nextObject(1);
 				
 				
 				if (obj2 instanceof Symbol) {
@@ -57,7 +57,7 @@ public class VarWord {
 								new UserWord(sym.toString(),"X -- ",lamda));
 					}
 				}else{
-					Error.errorSymbol("µÎ", "=");
+					Error.errorSymbol("ï¿½ï¿½", "=");
 				}
 				
 				

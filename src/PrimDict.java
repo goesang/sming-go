@@ -4,9 +4,9 @@ import java.util.HashMap;
 public class PrimDict {
 
 		private HashMap<String, PrimWord> dict;
+		private static PrimDict single = new PrimDict();
 		
-		  private static PrimDict single = new PrimDict();
-		  
+		
 		  public static PrimDict getInstance(){
 		        return single;
 		    }

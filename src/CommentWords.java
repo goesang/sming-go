@@ -19,7 +19,7 @@ public class CommentWords {
 				@Override
 				public Object excute() throws Exception  {
 					// TODO Auto-generated method stub
-					SmingGo.getInstance().nextCharsUpTo('~!');
+					SmingGo.getInstance().nextCharsUpTo('!');
 					return null;
 				}
 				public String toString(){

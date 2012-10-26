@@ -8,30 +8,30 @@ import java.io.FileWriter;
 public class IOWords {
 	public IOWords(){
    //파일을 다루는 단어들 모음!
-    	PrimDict.getInstance().put("file-easy-read",new PrimWord() {
+    	PrimDict.getInstance().put("file-read",new PrimWord() {
 			//단순히 파일을 읽어와서 문자열로 값을 내놓음
 			@Override
 			public Object excute() throws Exception{
 				// TODO Auto-generated method stub
-				Error.enoughMsg(1,"file-easy-read");
+				Error.enoughMsg(1,"file-read");
 				Object obj = DataStack.getInstance().pop();
 				if (obj instanceof Symbol) {
-					Symbol sym = (Symbol) obj;
+					Symbol symbol = (Symbol) obj;
 					try{
-						FileReader fr = new FileReader(sym.toString()); // 파일 리더 만듬
+						FileReader fr = new FileReader(symbol.toString()); // 파일 리더 만듬
 						BufferedReader br = new BufferedReader(fr);    // 버퍼 리더로 감쌈
-						StringBuilder fStr = new StringBuilder();     // 옮겨 적음 스트링빌더 생성
+						StringBuilder readString = new StringBuilder();     // 옮겨 적음 스트링빌더 생성
 						do {
-							String strTmp = br.readLine();
-							if(strTmp == null) break;
-							fStr.append(strTmp+"\n");
+							String stringTmp = br.readLine();
+							if(stringTmp == null) break;
+							readString.append(stringTmp+"\n");
 						} while(true);
-						DataStack.getInstance().push(fStr.toString());
+						DataStack.getInstance().push(readString);
 						br.close();
 						fr.close();
 					}
 					catch(Exception e){
-						throw new Exception("\"" + str+"\"이란 파일은 존재하지 않습니다! -- \"file-easy-read\"");
+						throw new Exception("\"" + symbol.toString()+"\"이란 파일은 존재하지 않습니다! -- \"file-easy-read\"");
 					}
 				}
 				else{
@@ -45,22 +45,22 @@ public class IOWords {
 			}
 		});
     	
-    	PrimDict.getInstance().put("file-easy-write",new PrimWord() {
+    	PrimDict.getInstance().put("file-write",new PrimWord() {
 			//단순히 문자열을 파일에 씀
 			@Override
 			public Object excute() throws Exception{
 				// TODO Auto-generated method stub
-				Error.enoughMsg(2,"file-easy-write");
+				Error.enoughMsg(2,"file-write");
 				Object obj2 = DataStack.getInstance().pop();
 				Object obj1 = DataStack.getInstance().pop();
 				if (obj1 instanceof Symbol) {
 					Symbol sym = (Symbol) obj1;
 					if (obj2 instanceof String) {
-						String str = (String) obj2;
+						String writeString = (String) obj2;
 						try{
 							FileWriter fw = new FileWriter(sym.toString());
 							BufferedWriter bw = new BufferedWriter(fw);
-							bw.write(str2);
+							bw.write(writeString);
 							bw.close();
 							fw.close();
 						}
@@ -83,57 +83,6 @@ public class IOWords {
 			}
 		});
       
-       PrimDict.getInstance().put("file-open",new PrimWord() {
-			//단순히 문자열을 파일에 씀
-			@Override
-			public Object excute() throws Exception{
-				// TODO Auto-generated method stub
-			 
-
-			}
-			public String toString(){
-				return "file-open";
-			}
-		});
-      
-       PrimDict.getInstance().put("file-read",new PrimWord() {
-			//단순히 문자열을 파일에 씀
-			@Override
-			public Object excute() throws Exception{
-				// TODO Auto-generated method stub
-			 
-
-			}
-			public String toString(){
-				return "file-read";
-			}
-		});
-      
-      PrimDict.getInstance().put("file-write",new PrimWord() {
-			//단순히 문자열을 파일에 씀
-			@Override
-			public Object excute() throws Exception{
-				// TODO Auto-generated method stub
-			 
-
-			}
-			public String toString(){
-				return "file-write";
-			}
-		});
-      
-      PrimDict.getInstance().put("file-close",new PrimWord() {
-			//단순히 문자열을 파일에 씀
-			@Override
-			public Object excute() throws Exception{
-				// TODO Auto-generated method stub
-			 
-
-			}
-			public String toString(){
-				return "file-close";
-			}
-		});
       
 	}
 }

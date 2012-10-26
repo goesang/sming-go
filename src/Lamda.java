@@ -8,6 +8,8 @@ public class Lamda<E> extends LinkedList<E> {
 	public static Stack<Lamda> defineState = new Stack<Lamda>();
 	public static Stack<Lamda> callee = new Stack<Lamda>();
 	
+	public static boolean defineEnd;
+	
 	private HashMap<String,Object> dict;
 	
 	public Lamda(){

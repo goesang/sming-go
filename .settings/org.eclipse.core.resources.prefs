@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/BooleanWords.java=UTF-8
 encoding//src/CheckWords.java=UTF-8
+encoding//src/CommentWords.java=UTF-8
 encoding//src/ControlWords.java=UTF-8
 encoding//src/DefineWords.java=UTF-8
 encoding//src/Error.java=UTF-8
@@ -10,3 +11,5 @@ encoding//src/MathWords.java=UTF-8
 encoding//src/Processing.java=UTF-8
 encoding//src/SmingGo.java=UTF-8
 encoding//src/StringWords.java=UTF-8
+encoding//src/SymbolWords.java=UTF-8
+encoding//src/VarWord.java=UTF-8
